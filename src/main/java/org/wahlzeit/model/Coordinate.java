@@ -4,6 +4,7 @@ public class Coordinate{
     private double x;
     private double y;
     private double z;
+    private static final double PRECISION_EPSILON = 1e-5;
 
     public Coordinate(double x, double y, double z){
         this.x = x;
@@ -46,9 +47,9 @@ public class Coordinate{
         if (c == this){
             return true;
         }
-        boolean allCoordEqual = this.x == c.x &&
-                                this.y == c.y &&
-                                this.z == c.z;
+        boolean allCoordEqual = Math.abs(this.x - c.x) < PRECISION_EPSILON &&
+                                Math.abs(this.y - c.y) < PRECISION_EPSILON &&
+                                Math.abs(this.z - c.z) < PRECISION_EPSILON;
         return allCoordEqual;
     }
 
