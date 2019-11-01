@@ -59,4 +59,18 @@ public class Coordinate{
         }
         return false;
     }
+
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long tmp;
+		tmp = Double.doubleToLongBits(x);
+		result = prime * result + (int) (tmp ^ (tmp >>> 32));
+		tmp = Double.doubleToLongBits(y);
+		result = prime * result + (int) (tmp ^ (tmp >>> 32));
+		tmp = Double.doubleToLongBits(z);
+		result = prime * result + (int) (tmp ^ (tmp >>> 32));
+		return result;
+	}
 }
