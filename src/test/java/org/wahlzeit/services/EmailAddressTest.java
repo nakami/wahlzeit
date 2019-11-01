@@ -66,5 +66,28 @@ public class EmailAddressTest extends TestCase {
 		assertFalse(EmailAddress.EMPTY.isValid());
 	}
 
+	public void testEmptyEmailAddressExtended() {
+		EmailAddress mailFromGetString = EmailAddress.getFromString("");
+		assertFalse(mailFromGetString.isValid());
+	}
+
+	public void testEmailIsEqual(){
+		EmailAddress mailAddressA = new EmailAddress("abc.def@fau.de");
+		EmailAddress mailAddressB = new EmailAddress("abc.def@google.com");
+		EmailAddress mailAddressC = new EmailAddress("ghi@fau.de");
+
+		// A<>A, B<>B, C<>C
+		assertTrue(mailAddressA.isEqual(mailAddressA));
+		assertTrue(mailAddressB.isEqual(mailAddressB));
+		assertTrue(mailAddressC.isEqual(mailAddressC));
+		
+		// A<>B, B<>A, B<>C, C<>B, A<>C, C<>A
+		assertFalse(mailAddressA.isEqual(mailAddressB));
+		assertFalse(mailAddressB.isEqual(mailAddressA));
+		assertFalse(mailAddressB.isEqual(mailAddressC));
+		assertFalse(mailAddressC.isEqual(mailAddressB));
+		assertFalse(mailAddressA.isEqual(mailAddressC));
+		assertFalse(mailAddressC.isEqual(mailAddressA));
+	}
 }
 
