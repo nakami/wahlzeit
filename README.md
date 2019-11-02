@@ -1,5 +1,8 @@
-# Wahlzeit: Open Source Software for Photo Rating Sites
+[![Travis Badge](https://travis-ci.org/nakami/wahlzeit.svg?branch=master)](https://travis-ci.org/nakami/wahlzeit)
+[![Docker Badge](https://img.shields.io/badge/docker-tags-blue)](https://hub.docker.com/r/thenakami/wahlzeit/tags)
+[![Maintenance](https://img.shields.io/badge/maintained-yes-green.svg)](https://github.com/nakami/wahlzeit/commits/master)
 
+# Wahlzeit: Open Source Software for Photo Rating Sites
 
 ## PART I: INTRODUCTION
 
