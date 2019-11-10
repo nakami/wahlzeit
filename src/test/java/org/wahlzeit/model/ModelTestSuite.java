@@ -7,6 +7,9 @@ import org.junit.runners.Suite;
 //import org.wahlzeit.model.persistence.AbstractAdapterTest;
 import org.wahlzeit.model.persistence.DatastoreAdapterTest;
 import org.wahlzeit.model.AccessRightsTest;
+import org.wahlzeit.model.BikePhotoTest;
+import org.wahlzeit.model.BikePhotoFactoryTest;
+import org.wahlzeit.model.BikePhotoManagerTest;
 import org.wahlzeit.model.CoordinateTest;
 import org.wahlzeit.model.FlagReasonTest;
 import org.wahlzeit.model.GenderTest;
@@ -21,6 +24,9 @@ import org.wahlzeit.model.ValueTest;
     //AbstractAdapterTest.class,
     DatastoreAdapterTest.class,
     AccessRightsTest.class,
+    BikePhotoTest.class,
+    BikePhotoFactoryTest.class,
+    BikePhotoManagerTest.class,
     CoordinateTest.class,
     FlagReasonTest.class,
     GenderTest.class,
