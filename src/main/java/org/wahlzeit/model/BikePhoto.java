@@ -18,6 +18,11 @@ public class BikePhoto extends Photo {
         super(myId);
     }
 
+    public BikePhoto(PhotoId myId, BikeType biketype) {
+        super(myId);
+        this.biketype = biketype;
+    }
+
     public BikeType getBikeType() {
         return this.biketype;
     }

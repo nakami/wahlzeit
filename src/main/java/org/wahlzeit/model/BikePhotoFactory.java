@@ -10,7 +10,6 @@ public class BikePhotoFactory extends PhotoFactory{
 
     private static BikePhotoFactory instance = null;
 
-
     protected BikePhotoFactory() {
         // do nothing
     }
@@ -38,14 +37,24 @@ public class BikePhotoFactory extends PhotoFactory{
         instance = bikePhotoFactory;
     }
 
-    /**
-     * @methodtype factory
-     */
+
     public BikePhoto createPhoto() {
         return new BikePhoto();
     }
 
     public BikePhoto createPhoto(PhotoId id) {
         return new BikePhoto(id);
+    }
+
+    public BikePhoto loadPhoto(PhotoId id) {
+       /* Photo result =
+                OfyService.ofy().load().type(Photo.class).ancestor(KeyFactory.createKey("Application", "Wahlzeit")).filter(Photo.ID, id).first().now();
+        for (PhotoSize size : PhotoSize.values()) {
+            GcsFilename gcsFilename = new GcsFilename("picturebucket", filename);
+
+
+
+        }*/
+        return null;
     }
 }
