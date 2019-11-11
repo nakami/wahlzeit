@@ -9,6 +9,19 @@ import static org.junit.Assert.assertFalse;
 
 public class BikePhotoFactoryTest {
     @Test
-    public void testDummy() {
+    public void testGetStaticFinalInstance() {
+        // there should be only a single BikePhotoFactory!
+        BikePhotoFactory bpfInstance = BikePhotoFactory.getInstance();
+        assertNotNull(bpfInstance);
+        BikePhotoFactory bpfInstanceSecond = BikePhotoFactory.getInstance();
+        assertEquals(bpfInstance, bpfInstanceSecond);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void testOverrideExistingInstance() {
+        // there should be an exception thrown when attempting to replace an instance!
+        BikePhotoFactory bpfInstance = BikePhotoFactory.getInstance();
+        assertNotNull(bpfInstance);
+        BikePhotoFactory.setInstance(new BikePhotoFactory());
     }
 }
