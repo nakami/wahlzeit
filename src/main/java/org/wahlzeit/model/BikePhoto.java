@@ -30,4 +30,8 @@ public class BikePhoto extends Photo {
     public void setBikeType(BikeType biketype) {
         this.biketype = biketype;
     }
+
+    public boolean hasSameOwner(BikePhoto photo) {
+		return photo.getOwnerEmailAddress().equals(ownerEmailAddress);
+	}
 }
