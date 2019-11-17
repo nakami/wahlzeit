@@ -1,7 +1,5 @@
 package org.wahlzeit.model;
 
-//import java.util.Objects;
-
 public class CartesianCoordinate implements Coordinate{
     private double x;
     private double y;
@@ -69,9 +67,10 @@ public class CartesianCoordinate implements Coordinate{
     }
 
     @Override
-    // https://en.wikipedia.org/wiki/Great-circle_distance#From_chord_length
     public double getCentralAngle(Coordinate c) {
-        double dist = this.getCartesianDistance(c);
+	CartesianCoordinate cartesiancoord = c.asCartesianCoordinate();
+        double dist = this.getCartesianDistance(cartesiancoord);
+	// https://en.wikipedia.org/wiki/Great-circle_distance#From_chord_length
         return Math.asin(dist / 2) * 2;
     }
 
