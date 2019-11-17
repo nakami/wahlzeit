@@ -69,6 +69,7 @@ public class CartesianCoordinate implements Coordinate{
     }
 
     @Override
+    // https://en.wikipedia.org/wiki/Great-circle_distance#From_chord_length
     public double getCentralAngle(Coordinate c) {
         double dist = this.getCartesianDistance(c);
         return Math.asin(dist / 2) * 2;

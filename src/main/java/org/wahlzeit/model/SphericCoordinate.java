@@ -55,12 +55,17 @@ public class SphericCoordinate implements Coordinate {
         return this.asCartesianCoordinate().getCartesianDistance(c);
     }
 
+    public double getDistance(Coordinate c){
+        return this.getCartesianDistance(c);
+    }
+
     // calculate central angle in CartesianCoordinate
     @Override
     public double getCentralAngle(Coordinate c) {
         return this.asCartesianCoordinate().getCentralAngle(c);
     }
 
+    // check whether equal in CartesianCoordinate
     @Override
     public boolean isEqual(Coordinate c) {
         return this.asCartesianCoordinate().isEqual(c);
