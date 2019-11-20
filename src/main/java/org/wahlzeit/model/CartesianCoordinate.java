@@ -1,10 +1,9 @@
 package org.wahlzeit.model;
 
-public class CartesianCoordinate implements Coordinate{
+public class CartesianCoordinate extends AbstractCoordinate {
     private double x;
     private double y;
     private double z;
-    private static final double PRECISION_EPSILON = 1e-5;
 
     public CartesianCoordinate(double x, double y, double z){
         this.x = x;
@@ -41,22 +40,6 @@ public class CartesianCoordinate implements Coordinate{
         return this;
     }
 
-    public double getDistance(Coordinate c){
-        CartesianCoordinate cartesiancoord = c.asCartesianCoordinate();
-
-
-        double sum = Math.pow(this.x - cartesiancoord.x, 2)
-                    + Math.pow(this.y - cartesiancoord.y, 2)
-                    + Math.pow(this.z - cartesiancoord.z, 2);
-        return Math.sqrt(sum);
-    }
-
-    @Override
-    public double getCartesianDistance(Coordinate c) {
-        CartesianCoordinate cartesiancoord = c.asCartesianCoordinate();
-        return this.getDistance(cartesiancoord);
-    }
-
     @Override
     public SphericCoordinate asSphericCoordinate() {
         double phi = Math.atan(this.y / this.x);
@@ -64,34 +47,6 @@ public class CartesianCoordinate implements Coordinate{
         double theta = Math.acos(this.z / radius);
         SphericCoordinate sphericcoord = new SphericCoordinate(phi, theta, radius);
         return sphericcoord;
-    }
-
-    @Override
-    public double getCentralAngle(Coordinate c) {
-	CartesianCoordinate cartesiancoord = c.asCartesianCoordinate();
-        double dist = this.getCartesianDistance(cartesiancoord);
-	// https://en.wikipedia.org/wiki/Great-circle_distance#From_chord_length
-        return Math.asin(dist / 2) * 2;
-    }
-
-    @Override
-    public boolean isEqual(Coordinate c){
-        if (c == this){
-            return true;
-        }
-        CartesianCoordinate cartesianCoordinate = c.asCartesianCoordinate();
-        boolean allCoordEqual = Math.abs(this.x - cartesianCoordinate.x) < PRECISION_EPSILON &&
-                                Math.abs(this.y - cartesianCoordinate.y) < PRECISION_EPSILON &&
-                                Math.abs(this.z - cartesianCoordinate.z) < PRECISION_EPSILON;
-        return allCoordEqual;
-    }
-
-    @Override
-    public boolean equals(Object object){
-        if (object instanceof Coordinate){
-            return isEqual((Coordinate) object);
-        }
-        return false;
     }
 
     @Override

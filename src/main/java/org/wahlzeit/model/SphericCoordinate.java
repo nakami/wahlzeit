@@ -1,8 +1,6 @@
 package org.wahlzeit.model;
 
-import java.util.Objects;
-
-public class SphericCoordinate implements Coordinate {
+public class SphericCoordinate extends AbstractCoordinate {
     private double phi;
     private double theta;
     private double radius;
@@ -48,35 +46,6 @@ public class SphericCoordinate implements Coordinate {
         double y = this.radius * Math.sin(this.theta) * Math.sin(this.phi);
         double z = this.radius * Math.cos(this.theta);
         return new CartesianCoordinate(x, y, z);
-    }
-
-    @Override
-    public double getCartesianDistance(Coordinate c) {
-        return this.asCartesianCoordinate().getCartesianDistance(c);
-    }
-
-    public double getDistance(Coordinate c){
-        return this.getCartesianDistance(c);
-    }
-
-    // calculate central angle in CartesianCoordinate
-    @Override
-    public double getCentralAngle(Coordinate c) {
-        return this.asCartesianCoordinate().getCentralAngle(c);
-    }
-
-    // check whether equal in CartesianCoordinate
-    @Override
-    public boolean isEqual(Coordinate c) {
-        return this.asCartesianCoordinate().isEqual(c);
-    }
-
-    @Override
-    public boolean equals(Object object){
-        if (object instanceof Coordinate){
-            return isEqual((Coordinate) object);
-        }
-        return false;
     }
 
     @Override
