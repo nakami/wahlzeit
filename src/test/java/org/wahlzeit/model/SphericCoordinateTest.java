@@ -9,16 +9,16 @@ import static org.junit.Assert.assertEquals;
 public class SphericCoordinateTest {
 
     @Test
-    public void getDistanceSameCoordVec() {
+    public void testGetCartesianDistanceSameCoordVec() {
         SphericCoordinate a = new SphericCoordinate(1.0, 1.0, 1.0);
         SphericCoordinate b = new SphericCoordinate(1.0, 1.0, 1.0);
-        assertTrue(a.getDistance(b) == 0.0);
+        assertTrue(a.getCartesianDistance(b) == 0.0);
     }
 
     @Test
-    public void getDistanceSameCoordObj() {
+    public void testGetCartesianDistanceSameCoordObj() {
         SphericCoordinate a = new SphericCoordinate(1.0, 1.0, 1.0);
-        assertTrue(a.getDistance(a) == 0.0);
+        assertTrue(a.getCartesianDistance(a) == 0.0);
     }
 
     @Test
@@ -33,20 +33,20 @@ public class SphericCoordinateTest {
     }
 
     @Test
-    public void testGetDistanceWhileCartesianOneAxisDiffer() {
+    public void testGetCartesianDistanceWhileCartesianOneAxisDiffer() {
         SphericCoordinate a = (new CartesianCoordinate(1.0, 1.0, 1.0)).asSphericCoordinate();
         SphericCoordinate b = (new CartesianCoordinate(2.0, 1.0, 1.0)).asSphericCoordinate();
-        assertEquals(a.getDistance(b), 1.0, 0.001);
-        assertEquals(b.getDistance(a), 1.0, 0.001);
+        assertEquals(a.getCartesianDistance(b), 1.0, 0.001);
+        assertEquals(b.getCartesianDistance(a), 1.0, 0.001);
 
         a = (new CartesianCoordinate(1.0, 1.0, 1.0)).asSphericCoordinate();
         b = (new CartesianCoordinate(1.0, 2.0, 1.0)).asSphericCoordinate();
-        assertEquals(a.getDistance(b), 1.0, 0.001);
-        assertEquals(b.getDistance(a), 1.0, 0.001);
+        assertEquals(a.getCartesianDistance(b), 1.0, 0.001);
+        assertEquals(b.getCartesianDistance(a), 1.0, 0.001);
 
         a = (new CartesianCoordinate(1.0, 1.0, 1.0)).asSphericCoordinate();
         b = (new CartesianCoordinate(1.0, 1.0, 2.0)).asSphericCoordinate();
-        assertEquals(a.getDistance(b), 1.0, 0.001);
-        assertEquals(b.getDistance(a), 1.0, 0.001);
+        assertEquals(a.getCartesianDistance(b), 1.0, 0.001);
+        assertEquals(b.getCartesianDistance(a), 1.0, 0.001);
     }
 }

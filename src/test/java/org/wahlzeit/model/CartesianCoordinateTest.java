@@ -8,34 +8,34 @@ import static org.junit.Assert.assertFalse;
 public class CartesianCoordinateTest {
 
     @Test
-    public void testGetDistanceSameCoordVec() {
+    public void testGetCartesianDistanceSameCoordVec() {
         CartesianCoordinate a = new CartesianCoordinate(1.0, 1.0, 1.0);
         CartesianCoordinate b = new CartesianCoordinate(1.0, 1.0, 1.0);
-        assertTrue(a.getDistance(b) == 0.0);
+        assertTrue(a.getCartesianDistance(b) == 0.0);
     }
 
     @Test
-    public void testGetDistanceSameCoordObj() {
+    public void testGetCartesianDistanceSameCoordObj() {
         CartesianCoordinate a = new CartesianCoordinate(1.0, 1.0, 1.0);
-        assertTrue(a.getDistance(a) == 0.0);
+        assertTrue(a.getCartesianDistance(a) == 0.0);
     }
 
     @Test
-    public void testGetDistanceOneAxisDiffer() {
+    public void testGetCartesianDistanceOneAxisDiffer() {
         CartesianCoordinate a = new CartesianCoordinate(1.0, 1.0, 1.0);
         CartesianCoordinate b = new CartesianCoordinate(2.0, 1.0, 1.0);
-        assertTrue(a.getDistance(b) == 1.0);
-        assertTrue(b.getDistance(a) == 1.0);
+        assertTrue(a.getCartesianDistance(b) == 1.0);
+        assertTrue(b.getCartesianDistance(a) == 1.0);
 
         a = new CartesianCoordinate(1.0, 1.0, 1.0);
         b = new CartesianCoordinate(1.0, 2.0, 1.0);
-        assertTrue(a.getDistance(b) == 1.0);
-        assertTrue(b.getDistance(a) == 1.0);
+        assertTrue(a.getCartesianDistance(b) == 1.0);
+        assertTrue(b.getCartesianDistance(a) == 1.0);
 
         a = new CartesianCoordinate(1.0, 1.0, 1.0);
         b = new CartesianCoordinate(1.0, 1.0, 2.0);
-        assertTrue(a.getDistance(b) == 1.0);
-        assertTrue(b.getDistance(a) == 1.0);
+        assertTrue(a.getCartesianDistance(b) == 1.0);
+        assertTrue(b.getCartesianDistance(a) == 1.0);
     }
 
     @Test
