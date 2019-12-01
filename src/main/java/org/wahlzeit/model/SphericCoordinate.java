@@ -41,18 +41,18 @@ public class SphericCoordinate extends AbstractCoordinate {
     }
 
     public void setPhi(double phi) {
+        assert Double.isFinite(phi);
         this.phi = phi;
-        assertClassInvariants();
     }
 
     public void setTheta(double theta) {
+        assert Double.isFinite(theta);
         this.theta = theta;
-        assertClassInvariants();
     }
 
     public void setRadius(double radius) {
+        assert Double.isFinite(radius);
         this.radius = radius;
-        assertClassInvariants();
     }
 
     @Override

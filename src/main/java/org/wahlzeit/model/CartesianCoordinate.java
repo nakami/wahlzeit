@@ -35,18 +35,18 @@ public class CartesianCoordinate extends AbstractCoordinate {
     }
 
     public void setX(double x) {
+        assert Double.isFinite(x);
         this.x = x;
-        assertClassInvariants();
     }
 
     public void setY(double y) {
+        assert Double.isFinite(y);
         this.y = y;
-        assertClassInvariants();
     }
 
     public void setZ(double z) {
+        assert Double.isFinite(z);
         this.z = z;
-        assertClassInvariants();
     }
     
     @Override
