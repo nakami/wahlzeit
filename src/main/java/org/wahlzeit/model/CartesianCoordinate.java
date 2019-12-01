@@ -5,11 +5,22 @@ public class CartesianCoordinate extends AbstractCoordinate {
     private double y;
     private double z;
 
+    protected void assertClassInvariants() {
+        // component validity checks
+        // isFinite returns false if NaN or infinite
+        assert Double.isFinite(this.x);
+        assert Double.isFinite(this.y);
+        assert Double.isFinite(this.z);
+    }
+
     public CartesianCoordinate(double x, double y, double z){
         this.x = x;
         this.y = y;
         this.z = z;
+
+        assertClassInvariants();
     }
+
 
     public double getX() {
         return this.x;
@@ -25,14 +36,17 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
     public void setX(double x) {
         this.x = x;
+        assertClassInvariants();
     }
 
     public void setY(double y) {
         this.y = y;
+        assertClassInvariants();
     }
 
     public void setZ(double z) {
         this.z = z;
+        assertClassInvariants();
     }
     
     @Override
@@ -42,6 +56,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
 
     @Override
     public SphericCoordinate asSphericCoordinate() {
+        assertClassInvariants();
         double phi = Math.atan(this.y / this.x);
         double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
         double theta = Math.acos(this.z / radius);

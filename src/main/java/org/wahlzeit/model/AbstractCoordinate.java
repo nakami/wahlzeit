@@ -11,6 +11,9 @@ public abstract class AbstractCoordinate implements Coordinate {
         CartesianCoordinate thisAsCartesian = this.asCartesianCoordinate();
         CartesianCoordinate cartesiancoord = c.asCartesianCoordinate();
 
+        thisAsCartesian.assertClassInvariants();
+        cartesiancoord.assertClassInvariants();
+
         double sum = Math.pow(thisAsCartesian.getX() - cartesiancoord.getX(), 2)
                     + Math.pow(thisAsCartesian.getY() - cartesiancoord.getY(), 2)
                     + Math.pow(thisAsCartesian.getZ() - cartesiancoord.getZ(), 2);
@@ -19,8 +22,12 @@ public abstract class AbstractCoordinate implements Coordinate {
 
     @Override
     public double getCentralAngle(Coordinate c) {
-        CartesianCoordinate cartesiancoord = c.asCartesianCoordinate();
         CartesianCoordinate thisAsCartesian = this.asCartesianCoordinate();
+        CartesianCoordinate cartesiancoord = c.asCartesianCoordinate();
+
+        thisAsCartesian.assertClassInvariants();
+        cartesiancoord.assertClassInvariants();
+
         double dist = thisAsCartesian.getCartesianDistance(cartesiancoord);
 	    // https://en.wikipedia.org/wiki/Great-circle_distance#From_chord_length
         return Math.asin(dist / 2) * 2;
@@ -34,6 +41,10 @@ public abstract class AbstractCoordinate implements Coordinate {
 
         CartesianCoordinate thisAsCartesian = this.asCartesianCoordinate();
         CartesianCoordinate cartesianCoordinate = c.asCartesianCoordinate();
+
+        thisAsCartesian.assertClassInvariants();
+        cartesianCoordinate.assertClassInvariants();
+
         boolean allCoordEqual = Math.abs(thisAsCartesian.getX() - cartesianCoordinate.getX()) < PRECISION_EPSILON &&
                                 Math.abs(thisAsCartesian.getY() - cartesianCoordinate.getY()) < PRECISION_EPSILON &&
                                 Math.abs(thisAsCartesian.getZ() - cartesianCoordinate.getZ()) < PRECISION_EPSILON;
