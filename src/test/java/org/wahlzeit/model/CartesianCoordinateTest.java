@@ -86,4 +86,27 @@ public class CartesianCoordinateTest {
         assertFalse(sphericcoord2.equals(sphericcoord3));
     }
 
+
+    @Test(expected = IllegalStateException.class)
+    public void testConstructorIllegalState() {
+        CartesianCoordinate coord = new CartesianCoordinate(Double.POSITIVE_INFINITY, 0.0, 0.0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetXIllegalArgument() {
+        CartesianCoordinate coord = new CartesianCoordinate(1.0, 1.0, 1.0);
+        coord.setX(Double.POSITIVE_INFINITY);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetYIllegalArgument() {
+        CartesianCoordinate coord = new CartesianCoordinate(1.0, 1.0, 1.0);
+        coord.setY(Double.POSITIVE_INFINITY);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetZIllegalArgument() {
+        CartesianCoordinate coord = new CartesianCoordinate(1.0, 1.0, 1.0);
+        coord.setZ(Double.POSITIVE_INFINITY);
+    }
 }

@@ -49,4 +49,28 @@ public class SphericCoordinateTest {
         assertEquals(a.getCartesianDistance(b), 1.0, 0.001);
         assertEquals(b.getCartesianDistance(a), 1.0, 0.001);
     }
+
+
+    @Test(expected = IllegalStateException.class)
+    public void testConstructorIllegalState() {
+        SphericCoordinate coord = new SphericCoordinate(Double.POSITIVE_INFINITY, 0.0, 0.0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetPhiIllegalArgument() {
+        SphericCoordinate coord = new SphericCoordinate(1.0, 1.0, 1.0);
+        coord.setPhi(Double.POSITIVE_INFINITY);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetThetaIllegalArgument() {
+        SphericCoordinate coord = new SphericCoordinate(1.0, 1.0, 1.0);
+        coord.setTheta(Double.POSITIVE_INFINITY);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetRadiusIllegalArgument() {
+        SphericCoordinate coord = new SphericCoordinate(1.0, 1.0, 1.0);
+        coord.setRadius(Double.POSITIVE_INFINITY);
+    }
 }
