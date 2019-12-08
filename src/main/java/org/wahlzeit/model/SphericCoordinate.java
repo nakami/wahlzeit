@@ -5,22 +5,31 @@ public class SphericCoordinate extends AbstractCoordinate {
     private double theta;
     private double radius;
 
-    protected void assertClassInvariants() {
+    protected void assertClassInvariants() throws IllegalStateException {
         // component validity checks
         // isFinite returns false if NaN or infinite
-        assert Double.isFinite(this.phi);
-        assert Double.isFinite(this.theta);
-        assert Double.isFinite(this.radius);
+        String error_msg = "";
+		if(!Double.isFinite(this.phi) || ! Double.isFinite(this.theta) || !Double.isFinite(this.radius)) {
+            error_msg = String.format("At least one Coordinate component not finite: phi=%d, theta=%d, radius=%d", this.phi, this.theta, this.radius);
+            throw new IllegalStateException(error_msg);
+        }
 
         // spheric specifics
-        assert this.radius >= 0;
-        assert this.theta >= 0;
-        assert this.phi >= 0;
-        assert this.theta <= 180;
-        assert this.phi < 360;
+		if((this.radius < 0)) {
+            error_msg = String.format("radius needs to be zero (inclusive) or greater: radius=%d", this.radius);
+            throw new IllegalStateException(error_msg);
+        }
+		if((this.phi < 0) || this.phi >= 360) {
+            error_msg = String.format("phi needs to be between zero (inclusive) and 360 (exclusive): phi=%d", this.phi);
+            throw new IllegalStateException(error_msg);
+        }
+        if((this.theta < 0) || this.theta > 180) {
+            error_msg = String.format("theta needs to be between zero (inclusive) and 180 (inclusive): theta=%d", this.theta);
+            throw new IllegalStateException(error_msg);
+        }
     }
 
-    public SphericCoordinate(double phi, double theta, double radius){
+    public SphericCoordinate(double phi, double theta, double radius) throws IllegalStateException {
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
@@ -40,18 +49,21 @@ public class SphericCoordinate extends AbstractCoordinate {
         return this.radius;
     }
 
-    public void setPhi(double phi) {
-        assert Double.isFinite(phi);
+    public void setPhi(double phi) throws IllegalArgumentException {
+        if (!Double.isFinite(phi))
+            throw new IllegalArgumentException("Provided argument phi is not finite!");
         this.phi = phi;
     }
 
-    public void setTheta(double theta) {
-        assert Double.isFinite(theta);
+    public void setTheta(double theta) throws IllegalArgumentException {
+        if (!Double.isFinite(theta))
+            throw new IllegalArgumentException("Provided argument theta is not finite!");
         this.theta = theta;
     }
 
-    public void setRadius(double radius) {
-        assert Double.isFinite(radius);
+    public void setRadius(double radius) throws IllegalArgumentException {
+        if (!Double.isFinite(radius))
+            throw new IllegalArgumentException("Provided argument radius is not finite!");
         this.radius = radius;
     }
 
@@ -61,7 +73,7 @@ public class SphericCoordinate extends AbstractCoordinate {
     }
 
     @Override
-    public CartesianCoordinate asCartesianCoordinate() {
+    public CartesianCoordinate asCartesianCoordinate() throws IllegalStateException {
         assertClassInvariants();
         double x = this.radius * Math.sin(this.theta) * Math.cos(this.phi);
         double y = this.radius * Math.sin(this.theta) * Math.sin(this.phi);

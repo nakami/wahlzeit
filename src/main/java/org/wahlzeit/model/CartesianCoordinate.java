@@ -5,22 +5,23 @@ public class CartesianCoordinate extends AbstractCoordinate {
     private double y;
     private double z;
 
-    protected void assertClassInvariants() {
+    protected void assertClassInvariants() throws IllegalStateException {
         // component validity checks
         // isFinite returns false if NaN or infinite
-        assert Double.isFinite(this.x);
-        assert Double.isFinite(this.y);
-        assert Double.isFinite(this.z);
+        String error_msg = "";
+		if(!Double.isFinite(this.x) || !Double.isFinite(this.y) || !Double.isFinite(this.z)) {
+            error_msg = String.format("At least one Coordinate component not finite: x=%d, y=%d, z=%d", this.x, this.y, this.z);
+            throw new IllegalStateException(error_msg);
+        }
     }
 
-    public CartesianCoordinate(double x, double y, double z){
+    public CartesianCoordinate(final double x, final double y, final double z) throws IllegalStateException {
         this.x = x;
         this.y = y;
         this.z = z;
 
         assertClassInvariants();
     }
-
 
     public double getX() {
         return this.x;
@@ -34,33 +35,36 @@ public class CartesianCoordinate extends AbstractCoordinate {
         return this.z;
     }
 
-    public void setX(double x) {
-        assert Double.isFinite(x);
+    public void setX(final double x) throws IllegalArgumentException {
+        if (!Double.isFinite(x))
+            throw new IllegalArgumentException("Provided argument x is not finite!");
         this.x = x;
     }
 
-    public void setY(double y) {
-        assert Double.isFinite(y);
+    public void setY(final double y) throws IllegalArgumentException {
+        if (!Double.isFinite(y))
+            throw new IllegalArgumentException("Provided argument y is not finite!");
         this.y = y;
     }
 
-    public void setZ(double z) {
-        assert Double.isFinite(z);
+    public void setZ(final double z) throws IllegalArgumentException {
+        if (!Double.isFinite(z))
+            throw new IllegalArgumentException("Provided argument z is not finite!");
         this.z = z;
     }
-    
+
     @Override
     public CartesianCoordinate asCartesianCoordinate() {
         return this;
     }
 
     @Override
-    public SphericCoordinate asSphericCoordinate() {
+    public SphericCoordinate asSphericCoordinate() throws IllegalStateException {
         assertClassInvariants();
-        double phi = Math.atan(this.y / this.x);
-        double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
-        double theta = Math.acos(this.z / radius);
-        SphericCoordinate sphericcoord = new SphericCoordinate(phi, theta, radius);
+        final double phi = Math.atan(this.y / this.x);
+        final double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+        final double theta = Math.acos(this.z / radius);
+        final SphericCoordinate sphericcoord = new SphericCoordinate(phi, theta, radius);
         return sphericcoord;
     }
 

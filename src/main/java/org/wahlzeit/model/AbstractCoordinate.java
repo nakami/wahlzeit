@@ -7,7 +7,7 @@ public abstract class AbstractCoordinate implements Coordinate {
     public abstract SphericCoordinate asSphericCoordinate();
 
     @Override
-    public double getCartesianDistance(Coordinate c) {
+    public double getCartesianDistance(Coordinate c) throws IllegalStateException {
         CartesianCoordinate thisAsCartesian = this.asCartesianCoordinate();
         CartesianCoordinate cartesiancoord = c.asCartesianCoordinate();
 
@@ -21,7 +21,7 @@ public abstract class AbstractCoordinate implements Coordinate {
     }
 
     @Override
-    public double getCentralAngle(Coordinate c) {
+    public double getCentralAngle(Coordinate c) throws IllegalStateException {
         CartesianCoordinate thisAsCartesian = this.asCartesianCoordinate();
         CartesianCoordinate cartesiancoord = c.asCartesianCoordinate();
 
@@ -34,7 +34,7 @@ public abstract class AbstractCoordinate implements Coordinate {
     }
 
     @Override
-    public boolean isEqual(Coordinate c) {
+    public boolean isEqual(Coordinate c) throws IllegalStateException {
         if (c == this) {
             return true;
         }
@@ -52,7 +52,7 @@ public abstract class AbstractCoordinate implements Coordinate {
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(Object object) throws IllegalStateException {
         if (object instanceof Coordinate) {
             return isEqual((Coordinate) object);
         }
