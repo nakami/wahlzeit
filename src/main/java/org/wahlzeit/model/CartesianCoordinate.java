@@ -10,7 +10,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
         // isFinite returns false if NaN or infinite
         String error_msg = "";
 		if(!Double.isFinite(this.x) || !Double.isFinite(this.y) || !Double.isFinite(this.z)) {
-            error_msg = String.format("At least one Coordinate component not finite: x=%d, y=%d, z=%d", this.x, this.y, this.z);
+            error_msg = String.format("At least one Coordinate component not finite: x=%f, y=%f, z=%f", this.x, this.y, this.z);
             throw new IllegalStateException(error_msg);
         }
     }

@@ -10,21 +10,21 @@ public class SphericCoordinate extends AbstractCoordinate {
         // isFinite returns false if NaN or infinite
         String error_msg = "";
 		if(!Double.isFinite(this.phi) || ! Double.isFinite(this.theta) || !Double.isFinite(this.radius)) {
-            error_msg = String.format("At least one Coordinate component not finite: phi=%d, theta=%d, radius=%d", this.phi, this.theta, this.radius);
+            error_msg = String.format("At least one Coordinate component not finite: phi=%f, theta=%f, radius=%f", this.phi, this.theta, this.radius);
             throw new IllegalStateException(error_msg);
         }
 
         // spheric specifics
 		if((this.radius < 0)) {
-            error_msg = String.format("radius needs to be zero (inclusive) or greater: radius=%d", this.radius);
+            error_msg = String.format("radius needs to be zero (inclusive) or greater: radius=%f", this.radius);
             throw new IllegalStateException(error_msg);
         }
 		if((this.phi < 0) || this.phi >= 360) {
-            error_msg = String.format("phi needs to be between zero (inclusive) and 360 (exclusive): phi=%d", this.phi);
+            error_msg = String.format("phi needs to be between zero (inclusive) and 360 (exclusive): phi=%f", this.phi);
             throw new IllegalStateException(error_msg);
         }
         if((this.theta < 0) || this.theta > 180) {
-            error_msg = String.format("theta needs to be between zero (inclusive) and 180 (inclusive): theta=%d", this.theta);
+            error_msg = String.format("theta needs to be between zero (inclusive) and 180 (inclusive): theta=%f", this.theta);
             throw new IllegalStateException(error_msg);
         }
     }
