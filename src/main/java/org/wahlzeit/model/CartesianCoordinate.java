@@ -15,7 +15,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
         }
     }
 
-    public CartesianCoordinate(final double x, final double y, final double z) throws IllegalStateException {
+    public CartesianCoordinate(double x, double y, double z) throws IllegalStateException {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -35,19 +35,19 @@ public class CartesianCoordinate extends AbstractCoordinate {
         return this.z;
     }
 
-    public void setX(final double x) throws IllegalArgumentException {
+    public void setX(double x) throws IllegalArgumentException {
         if (!Double.isFinite(x))
             throw new IllegalArgumentException("Provided argument x is not finite!");
         this.x = x;
     }
 
-    public void setY(final double y) throws IllegalArgumentException {
+    public void setY(double y) throws IllegalArgumentException {
         if (!Double.isFinite(y))
             throw new IllegalArgumentException("Provided argument y is not finite!");
         this.y = y;
     }
 
-    public void setZ(final double z) throws IllegalArgumentException {
+    public void setZ(double z) throws IllegalArgumentException {
         if (!Double.isFinite(z))
             throw new IllegalArgumentException("Provided argument z is not finite!");
         this.z = z;
@@ -61,10 +61,10 @@ public class CartesianCoordinate extends AbstractCoordinate {
     @Override
     public SphericCoordinate asSphericCoordinate() throws IllegalStateException {
         assertClassInvariants();
-        final double phi = Math.atan(this.y / this.x);
-        final double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
-        final double theta = Math.acos(this.z / radius);
-        final SphericCoordinate sphericcoord = new SphericCoordinate(phi, theta, radius);
+        double phi = Math.atan(this.y / this.x);
+        double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+        double theta = Math.acos(this.z / radius);
+        SphericCoordinate sphericcoord = new SphericCoordinate(phi, theta, radius);
         return sphericcoord;
     }
 
