@@ -3,8 +3,8 @@ package org.wahlzeit.model;
 public abstract class AbstractCoordinate implements Coordinate {
     private static final double PRECISION_EPSILON = 1e-5;
 
-    public abstract CartesianCoordinate asCartesianCoordinate();
-    public abstract SphericCoordinate asSphericCoordinate();
+    public abstract CartesianCoordinate asCartesianCoordinate() throws IllegalStateException;
+    public abstract SphericCoordinate asSphericCoordinate() throws IllegalStateException;
 
     @Override
     public double getCartesianDistance(Coordinate c) throws IllegalStateException {
