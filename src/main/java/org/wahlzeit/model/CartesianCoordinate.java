@@ -1,9 +1,12 @@
 package org.wahlzeit.model;
+import java.util.HashMap;
 
 public class CartesianCoordinate extends AbstractCoordinate {
-    private double x;
-    private double y;
-    private double z;
+    private final double x;
+    private final double y;
+    private final double z;
+
+    private static HashMap<CartesianCoordinate, CartesianCoordinate> objects = new HashMap<CartesianCoordinate, CartesianCoordinate>();
 
     protected void assertClassInvariants() throws IllegalStateException {
         // component validity checks
@@ -15,12 +18,22 @@ public class CartesianCoordinate extends AbstractCoordinate {
         }
     }
 
-    public CartesianCoordinate(double x, double y, double z) throws IllegalStateException {
+    // private constructor called within createOrGetByComponents(...)
+    private CartesianCoordinate(double x, double y, double z) throws IllegalStateException {
         this.x = x;
         this.y = y;
         this.z = z;
 
         assertClassInvariants();
+    }
+
+    public static CartesianCoordinate createOrGetByComponents(double phi, double theta, double radius) {
+        CartesianCoordinate coord = new CartesianCoordinate(phi, theta, radius);
+        if (objects.putIfAbsent(coord, coord) == null) {
+            return coord;
+        } else {
+            return objects.get(coord);
+        }
     }
 
     public double getX() {
@@ -35,22 +48,22 @@ public class CartesianCoordinate extends AbstractCoordinate {
         return this.z;
     }
 
-    public void setX(double x) throws IllegalArgumentException {
+    public CartesianCoordinate setXAndReturn(double x) throws IllegalArgumentException {
         if (!Double.isFinite(x))
             throw new IllegalArgumentException("Provided argument x is not finite!");
-        this.x = x;
+        return createOrGetByComponents(x, this.y, this.z);
     }
 
-    public void setY(double y) throws IllegalArgumentException {
+    public CartesianCoordinate setYAndReturn(double y) throws IllegalArgumentException {
         if (!Double.isFinite(y))
             throw new IllegalArgumentException("Provided argument y is not finite!");
-        this.y = y;
+        return createOrGetByComponents(this.x, y, this.z);
     }
 
-    public void setZ(double z) throws IllegalArgumentException {
+    public CartesianCoordinate setZAndReturn(double z) throws IllegalArgumentException {
         if (!Double.isFinite(z))
             throw new IllegalArgumentException("Provided argument z is not finite!");
-        this.z = z;
+        return createOrGetByComponents(this.x, this.y, z);
     }
 
     @Override
@@ -64,7 +77,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
         double phi = Math.atan(this.y / this.x);
         double radius = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
         double theta = Math.acos(this.z / radius);
-        SphericCoordinate sphericcoord = new SphericCoordinate(phi, theta, radius);
+        SphericCoordinate sphericcoord = SphericCoordinate.createOrGetByComponents(phi, theta, radius);
         return sphericcoord;
     }
 

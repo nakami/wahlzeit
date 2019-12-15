@@ -1,9 +1,12 @@
 package org.wahlzeit.model;
+import java.util.HashMap;
 
 public class SphericCoordinate extends AbstractCoordinate {
-    private double phi;
-    private double theta;
-    private double radius;
+    private final double phi;
+    private final double theta;
+    private final double radius;
+
+    private static HashMap<SphericCoordinate, SphericCoordinate> objects = new HashMap<SphericCoordinate, SphericCoordinate>();
 
     protected void assertClassInvariants() throws IllegalStateException {
         // component validity checks
@@ -29,12 +32,22 @@ public class SphericCoordinate extends AbstractCoordinate {
         }
     }
 
-    public SphericCoordinate(double phi, double theta, double radius) throws IllegalStateException {
+    // private constructor called within createOrGetByComponents(...)
+    private SphericCoordinate(double phi, double theta, double radius) throws IllegalStateException {
         this.phi = phi;
         this.theta = theta;
         this.radius = radius;
 
         assertClassInvariants();
+    }
+
+    public static SphericCoordinate createOrGetByComponents(double phi, double theta, double radius) {
+        SphericCoordinate coord = new SphericCoordinate(phi, theta, radius);
+        if (objects.putIfAbsent(coord, coord) == null) {
+            return coord;
+        } else {
+            return objects.get(coord);
+        }
     }
 
     public double getPhi() {
@@ -49,22 +62,22 @@ public class SphericCoordinate extends AbstractCoordinate {
         return this.radius;
     }
 
-    public void setPhi(double phi) throws IllegalArgumentException {
+    public SphericCoordinate setPhiAndReturn(double phi) throws IllegalArgumentException {
         if (!Double.isFinite(phi))
             throw new IllegalArgumentException("Provided argument phi is not finite!");
-        this.phi = phi;
+        return createOrGetByComponents(phi, this.theta, this.radius);
     }
 
-    public void setTheta(double theta) throws IllegalArgumentException {
+    public SphericCoordinate setThetaAndReturn(double theta) throws IllegalArgumentException {
         if (!Double.isFinite(theta))
             throw new IllegalArgumentException("Provided argument theta is not finite!");
-        this.theta = theta;
+        return createOrGetByComponents(this.phi, theta, this.radius);
     }
 
-    public void setRadius(double radius) throws IllegalArgumentException {
+    public SphericCoordinate setRadiusAndReturn(double radius) throws IllegalArgumentException {
         if (!Double.isFinite(radius))
             throw new IllegalArgumentException("Provided argument radius is not finite!");
-        this.radius = radius;
+        return createOrGetByComponents(this.phi, this.theta, radius);
     }
 
     @Override
@@ -78,7 +91,7 @@ public class SphericCoordinate extends AbstractCoordinate {
         double x = this.radius * Math.sin(this.theta) * Math.cos(this.phi);
         double y = this.radius * Math.sin(this.theta) * Math.sin(this.phi);
         double z = this.radius * Math.cos(this.theta);
-        return new CartesianCoordinate(x, y, z);
+        return CartesianCoordinate.createOrGetByComponents(x, y, z);
     }
 
     @Override
