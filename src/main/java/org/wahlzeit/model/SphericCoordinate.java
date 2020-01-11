@@ -6,7 +6,7 @@ public class SphericCoordinate extends AbstractCoordinate {
     private final double theta;
     private final double radius;
 
-    private static HashMap<SphericCoordinate, SphericCoordinate> objects = new HashMap<SphericCoordinate, SphericCoordinate>();
+    private static HashMap<Integer, SphericCoordinate> objects = new HashMap<Integer, SphericCoordinate>();
 
     protected void assertClassInvariants() throws IllegalStateException {
         // component validity checks
@@ -41,12 +41,15 @@ public class SphericCoordinate extends AbstractCoordinate {
         assertClassInvariants();
     }
 
-    public static SphericCoordinate createOrGetByComponents(double phi, double theta, double radius) {
-        SphericCoordinate coord = new SphericCoordinate(phi, theta, radius);
-        if (objects.putIfAbsent(coord, coord) == null) {
+    public static SphericCoordinate createOrGetByComponents(double phi_, double theta_, double radius_) {
+        int hash = doHashCode(phi_, theta_, radius_);
+        SphericCoordinate obj = objects.get(hash);
+        if (obj == null) {
+            SphericCoordinate coord = new SphericCoordinate(phi_, theta_, radius_);
+            objects.put(hash, coord);
             return coord;
         } else {
-            return objects.get(coord);
+            return obj;
         }
     }
 
@@ -94,17 +97,21 @@ public class SphericCoordinate extends AbstractCoordinate {
         return CartesianCoordinate.createOrGetByComponents(x, y, z);
     }
 
-    @Override
-	public int hashCode() {
+	public static int doHashCode(double phi_, double theta_, double radius_) {
 		final int prime = 31;
 		int result = 1;
 		long tmp;
-		tmp = Double.doubleToLongBits(this.phi);
+		tmp = Double.doubleToLongBits(phi_);
 		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		tmp = Double.doubleToLongBits(this.theta);
+		tmp = Double.doubleToLongBits(theta_);
 		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		tmp = Double.doubleToLongBits(this.radius);
+		tmp = Double.doubleToLongBits(radius_);
 		result = prime * result + (int) (tmp ^ (tmp >>> 32));
 		return result;
+	}
+
+    @Override
+	public int hashCode() {
+		return doHashCode(this.phi, this.theta, this.radius);
 	}
 }

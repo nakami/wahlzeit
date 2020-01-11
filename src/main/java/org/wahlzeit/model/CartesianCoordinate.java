@@ -6,7 +6,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
     private final double y;
     private final double z;
 
-    private static HashMap<CartesianCoordinate, CartesianCoordinate> objects = new HashMap<CartesianCoordinate, CartesianCoordinate>();
+    private static HashMap<Integer, CartesianCoordinate> objects = new HashMap<Integer, CartesianCoordinate>();
 
     protected void assertClassInvariants() throws IllegalStateException {
         // component validity checks
@@ -27,12 +27,15 @@ public class CartesianCoordinate extends AbstractCoordinate {
         assertClassInvariants();
     }
 
-    public static CartesianCoordinate createOrGetByComponents(double phi, double theta, double radius) {
-        CartesianCoordinate coord = new CartesianCoordinate(phi, theta, radius);
-        if (objects.putIfAbsent(coord, coord) == null) {
+    public static CartesianCoordinate createOrGetByComponents(double x_, double y_, double z_) {
+        int hash = doHashCode(x_, y_, z_);
+        CartesianCoordinate obj = objects.get(hash);
+        if (obj == null) {
+            CartesianCoordinate coord = new CartesianCoordinate(x_, y_, z_);
+            objects.put(hash, coord);
             return coord;
         } else {
-            return objects.get(coord);
+            return obj;
         }
     }
 
@@ -81,17 +84,21 @@ public class CartesianCoordinate extends AbstractCoordinate {
         return sphericcoord;
     }
 
-    @Override
-	public int hashCode() {
+	public static int doHashCode(double x_, double y_, double z_) {
 		final int prime = 31;
 		int result = 1;
 		long tmp;
-		tmp = Double.doubleToLongBits(x);
+		tmp = Double.doubleToLongBits(x_);
 		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		tmp = Double.doubleToLongBits(y);
+		tmp = Double.doubleToLongBits(y_);
 		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		tmp = Double.doubleToLongBits(z);
+		tmp = Double.doubleToLongBits(z_);
 		result = prime * result + (int) (tmp ^ (tmp >>> 32));
 		return result;
+	}
+
+    @Override
+	public int hashCode() {
+		return doHashCode(this.x, this.y, this.z);
 	}
 }

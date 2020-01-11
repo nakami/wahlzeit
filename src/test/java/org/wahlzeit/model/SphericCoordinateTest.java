@@ -33,6 +33,17 @@ public class SphericCoordinateTest {
     }
 
     @Test
+    public void isEqualOperator() {
+        SphericCoordinate a = SphericCoordinate.createOrGetByComponents(1.0, 1.0, 1.0);
+        SphericCoordinate b = SphericCoordinate.createOrGetByComponents(1.0, 1.0, 1.0);
+        assertTrue(a == b);
+
+        a = SphericCoordinate.createOrGetByComponents(1.0, 1.0, 1.0);
+        b = SphericCoordinate.createOrGetByComponents(2.0, 1.0, 1.0);
+        assertFalse(a == b);
+    }
+
+    @Test
     public void testGetCartesianDistanceWhileCartesianOneAxisDiffer() {
         SphericCoordinate a = (CartesianCoordinate.createOrGetByComponents(1.0, 1.0, 1.0)).asSphericCoordinate();
         SphericCoordinate b = (CartesianCoordinate.createOrGetByComponents(2.0, 1.0, 1.0)).asSphericCoordinate();

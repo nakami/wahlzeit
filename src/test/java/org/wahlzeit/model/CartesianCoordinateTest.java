@@ -50,6 +50,17 @@ public class CartesianCoordinateTest {
     }
 
     @Test
+    public void testIsEqualOperator() {
+        CartesianCoordinate a = CartesianCoordinate.createOrGetByComponents(1.0, 1.0, 1.0);
+        CartesianCoordinate b = CartesianCoordinate.createOrGetByComponents(1.0, 1.0, 1.0);
+        assertTrue(a == b);
+
+        a = CartesianCoordinate.createOrGetByComponents(1.0, 1.0, 1.0);
+        b = CartesianCoordinate.createOrGetByComponents(2.0, 1.0, 1.0);
+        assertFalse(a == b);
+    }
+
+    @Test
     public void testInterpretAsCartesian() {
         CartesianCoordinate coord = CartesianCoordinate.createOrGetByComponents(1.0, 1.0, 1.0);
         CartesianCoordinate coordAsCartesian = coord.asCartesianCoordinate();
