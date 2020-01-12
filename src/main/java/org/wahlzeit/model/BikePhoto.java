@@ -1,5 +1,15 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.annotations.PatternInstance;
+
+// https://en.wikipedia.org/wiki/Abstract_factory_pattern
+@PatternInstance(
+    patternName = "Abstract Factory",
+    participants = {
+        "Product"
+    }
+)
+
 public class BikePhoto extends Photo {
 
     private BikeType biketype;

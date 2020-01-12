@@ -1,5 +1,22 @@
 package org.wahlzeit.model;
+
 import java.util.HashMap;
+import org.wahlzeit.annotations.PatternInstance;
+
+// https://en.wikipedia.org/wiki/Template_method_pattern
+@PatternInstance(
+    patternName = "Template Method",
+    participants = {
+        "SubClass"
+    }
+)
+// https://en.wikipedia.org/wiki/Flyweight_pattern
+@PatternInstance(
+    patternName = "Flyweight",
+    participants = {
+        "Flyweight"
+    }
+)
 
 public class CartesianCoordinate extends AbstractCoordinate {
     private final double x;
@@ -12,7 +29,7 @@ public class CartesianCoordinate extends AbstractCoordinate {
         // component validity checks
         // isFinite returns false if NaN or infinite
         String error_msg = "";
-		if(!Double.isFinite(this.x) || !Double.isFinite(this.y) || !Double.isFinite(this.z)) {
+        if(!Double.isFinite(this.x) || !Double.isFinite(this.y) || !Double.isFinite(this.z)) {
             error_msg = String.format("At least one Coordinate component not finite: x=%f, y=%f, z=%f", this.x, this.y, this.z);
             throw new IllegalStateException(error_msg);
         }
@@ -84,21 +101,21 @@ public class CartesianCoordinate extends AbstractCoordinate {
         return sphericcoord;
     }
 
-	public static int doHashCode(double x_, double y_, double z_) {
-		final int prime = 31;
-		int result = 1;
-		long tmp;
-		tmp = Double.doubleToLongBits(x_);
-		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		tmp = Double.doubleToLongBits(y_);
-		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		tmp = Double.doubleToLongBits(z_);
-		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		return result;
-	}
+    public static int doHashCode(double x_, double y_, double z_) {
+        final int prime = 31;
+        int result = 1;
+        long tmp;
+        tmp = Double.doubleToLongBits(x_);
+        result = prime * result + (int) (tmp ^ (tmp >>> 32));
+        tmp = Double.doubleToLongBits(y_);
+        result = prime * result + (int) (tmp ^ (tmp >>> 32));
+        tmp = Double.doubleToLongBits(z_);
+        result = prime * result + (int) (tmp ^ (tmp >>> 32));
+        return result;
+    }
 
     @Override
-	public int hashCode() {
-		return doHashCode(this.x, this.y, this.z);
-	}
+    public int hashCode() {
+        return doHashCode(this.x, this.y, this.z);
+    }
 }

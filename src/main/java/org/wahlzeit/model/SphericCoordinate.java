@@ -1,5 +1,22 @@
 package org.wahlzeit.model;
+
 import java.util.HashMap;
+import org.wahlzeit.annotations.PatternInstance;
+
+// https://en.wikipedia.org/wiki/Template_method_pattern
+@PatternInstance(
+    patternName = "Template Method",
+    participants = {
+        "SubClass"
+    }
+)
+// https://en.wikipedia.org/wiki/Flyweight_pattern
+@PatternInstance(
+    patternName = "Flyweight",
+    participants = {
+        "Flyweight"
+    }
+)
 
 public class SphericCoordinate extends AbstractCoordinate {
     private final double phi;
@@ -12,17 +29,17 @@ public class SphericCoordinate extends AbstractCoordinate {
         // component validity checks
         // isFinite returns false if NaN or infinite
         String error_msg = "";
-		if(!Double.isFinite(this.phi) || ! Double.isFinite(this.theta) || !Double.isFinite(this.radius)) {
+        if(!Double.isFinite(this.phi) || ! Double.isFinite(this.theta) || !Double.isFinite(this.radius)) {
             error_msg = String.format("At least one Coordinate component not finite: phi=%f, theta=%f, radius=%f", this.phi, this.theta, this.radius);
             throw new IllegalStateException(error_msg);
         }
 
         // spheric specifics
-		if((this.radius < 0)) {
+        if((this.radius < 0)) {
             error_msg = String.format("radius needs to be zero (inclusive) or greater: radius=%f", this.radius);
             throw new IllegalStateException(error_msg);
         }
-		if((this.phi < 0) || this.phi >= 360) {
+        if((this.phi < 0) || this.phi >= 360) {
             error_msg = String.format("phi needs to be between zero (inclusive) and 360 (exclusive): phi=%f", this.phi);
             throw new IllegalStateException(error_msg);
         }
@@ -97,21 +114,21 @@ public class SphericCoordinate extends AbstractCoordinate {
         return CartesianCoordinate.createOrGetByComponents(x, y, z);
     }
 
-	public static int doHashCode(double phi_, double theta_, double radius_) {
-		final int prime = 31;
-		int result = 1;
-		long tmp;
-		tmp = Double.doubleToLongBits(phi_);
-		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		tmp = Double.doubleToLongBits(theta_);
-		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		tmp = Double.doubleToLongBits(radius_);
-		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		return result;
-	}
+    public static int doHashCode(double phi_, double theta_, double radius_) {
+        final int prime = 31;
+        int result = 1;
+        long tmp;
+        tmp = Double.doubleToLongBits(phi_);
+        result = prime * result + (int) (tmp ^ (tmp >>> 32));
+        tmp = Double.doubleToLongBits(theta_);
+        result = prime * result + (int) (tmp ^ (tmp >>> 32));
+        tmp = Double.doubleToLongBits(radius_);
+        result = prime * result + (int) (tmp ^ (tmp >>> 32));
+        return result;
+    }
 
     @Override
-	public int hashCode() {
-		return doHashCode(this.phi, this.theta, this.radius);
-	}
+    public int hashCode() {
+        return doHashCode(this.phi, this.theta, this.radius);
+    }
 }

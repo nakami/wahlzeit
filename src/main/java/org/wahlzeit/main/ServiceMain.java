@@ -22,6 +22,8 @@ package org.wahlzeit.main;
 
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.VoidWork;
+
+import org.wahlzeit.annotations.PatternInstance;
 import org.wahlzeit.handlers.*;
 import org.wahlzeit.model.AccessRights;
 import org.wahlzeit.model.EnglishModelConfig;
@@ -40,6 +42,14 @@ import java.util.logging.Logger;
 /**
  * A Main class that runs a Wahlzeit web server.
  */
+// https://en.wikipedia.org/wiki/Singleton_pattern
+@PatternInstance(
+	patternName = "Singleton",
+	participants = {
+		"Singleton"
+	}
+)
+
 public class ServiceMain extends ModelMain {
 
 	private static final Logger log = Logger.getLogger(ServiceMain.class.getName());

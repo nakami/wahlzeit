@@ -1,5 +1,14 @@
 package org.wahlzeit.model;
 
+import org.wahlzeit.annotations.PatternInstance;
+
+@PatternInstance(
+    patternName = "Template Method",
+    participants = {
+        "AbstractClass"
+    }
+)
+
 public abstract class AbstractCoordinate implements Coordinate {
     private static final double PRECISION_EPSILON = 1e-5;
 
