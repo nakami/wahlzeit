@@ -2,6 +2,7 @@ package org.wahlzeit.model;
 
 import org.wahlzeit.annotations.PatternInstance;
 
+// https://en.wikipedia.org/wiki/Template_method_pattern
 @PatternInstance(
     patternName = "Template Method",
     participants = {
