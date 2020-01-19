@@ -12,36 +12,29 @@ import org.wahlzeit.annotations.PatternInstance;
 
 public class BikePhoto extends Photo {
 
-    private BikeType biketype;
+    private Bike myBike;
 
     public BikePhoto(){
         super();
-        this.biketype = BikeType.UNKNOWN;
     }
 
-    public BikePhoto(BikeType biketype) {
-        super();
-        this.biketype = biketype;
+    public Bike getBike() {
+        return this.myBike;
+    }
+
+    public void setBike(Bike bike) throws IllegalArgumentException {
+        if(bike == null) {
+            throw new IllegalArgumentException("The bike may not be set to null");
+        } else {
+            this.myBike = bike;
+        }
     }
 
     public BikePhoto(PhotoId myId){
         super(myId);
     }
 
-    public BikePhoto(PhotoId myId, BikeType biketype) {
-        super(myId);
-        this.biketype = biketype;
-    }
-
-    public BikeType getBikeType() {
-        return this.biketype;
-    }
-
-    public void setBikeType(BikeType biketype) {
-        this.biketype = biketype;
-    }
-
     public boolean hasSameOwner(BikePhoto photo) {
-		return photo.getOwnerEmailAddress().equals(ownerEmailAddress);
-	}
+        return photo.getOwnerEmailAddress().equals(ownerEmailAddress);
+    }
 }
