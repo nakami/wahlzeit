@@ -4,15 +4,15 @@ public class Bike {
 
     private BikeType bikeType = null;
 
-    public Bike(BikeType bt) {
-        bikeType = bt;
+    public Bike(BikeType biketype) {
+        this.bikeType = biketype;
     }
 
     public BikeType getType() {
-        return bikeType;
+        return this.bikeType;
     }
 
-    public void setType(BikeType bt) {
-        this.bikeType = bt;
+    public void setType(BikeType biketype) {
+        this.bikeType = biketype;
     }
 }

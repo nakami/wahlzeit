@@ -8,18 +8,9 @@ import org.wahlzeit.services.DataObject;
 
 public class BikeType extends DataObject {
 
-    protected BikeType superType = null;
-    protected Set<BikeType> subTypes = new HashSet<BikeType>();
-    protected String typeName;
-    
-    public String[] bikeTypeNames = {
-        null,
-        "CITYBIKE",
-        "RACINGBIKE",
-        "MOUNTAINBIKE",
-        "MISCELLANEOUS",
-        "UNKNOWN"
-    };
+    private BikeType superType = null;
+    private Set<BikeType> subTypes = new HashSet<BikeType>();
+    private String typeName;
 
     public BikeType(String bikeTypeName) {
         this.typeName = bikeTypeName;
@@ -33,22 +24,22 @@ public class BikeType extends DataObject {
         return new Bike(this);
     }
 
-    public void setSuperType(BikeType st) {
-        superType = st;
+    public void setSuperType(BikeType superType) {
+        this.superType = superType;
     }
 
     public BikeType getSuperType() {
-        return superType;
+        return this.superType;
     }
 
     public Iterator<BikeType> getSubTypeIterator() {
         return subTypes.iterator();
     }
 
-    public void addSubType(BikeType bt) {
-        assert(bt != null): "tried to set null sub-type";
-        bt.setSuperType(this);
-        subTypes.add(bt);
+    public void addSubType(BikeType biketype) {
+        assert(biketype != null): "tried to set null sub-type";
+        biketype.setSuperType(this);
+        subTypes.add(biketype);
     }
 
     public boolean hasInstance(Bike bike) {
@@ -62,5 +53,13 @@ public class BikeType extends DataObject {
             }
         }
         return false;
+    }
+
+    public boolean isSubtypeOf(BikeType biketype){
+        return this.getSuperType() == biketype;
+    }
+
+    public boolean isSupertypeOf(BikeType biketype){
+        return biketype.getSuperType() == this;
     }
 }
