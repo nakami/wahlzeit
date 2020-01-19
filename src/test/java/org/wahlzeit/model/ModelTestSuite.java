@@ -10,6 +10,8 @@ import org.wahlzeit.model.AccessRightsTest;
 import org.wahlzeit.model.BikePhotoTest;
 import org.wahlzeit.model.BikePhotoFactoryTest;
 import org.wahlzeit.model.BikePhotoManagerTest;
+import org.wahlzeit.model.BikeManagerTest;
+import org.wahlzeit.model.BikeTypeTest;
 import org.wahlzeit.model.CartesianCoordinateTest;
 import org.wahlzeit.model.SphericCoordinateTest;
 import org.wahlzeit.model.FlagReasonTest;
@@ -28,6 +30,8 @@ import org.wahlzeit.model.ValueTest;
     BikePhotoTest.class,
     BikePhotoFactoryTest.class,
     BikePhotoManagerTest.class,
+    BikeManagerTest.class,
+    BikeTypeTest.class,
     CartesianCoordinateTest.class,
     SphericCoordinateTest.class,
     FlagReasonTest.class,
